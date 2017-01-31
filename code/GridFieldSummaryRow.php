@@ -38,41 +38,32 @@ class GridFieldSummaryRow implements GridField_HTMLProvider {
 		    
 		    if (!$this->displayFields)
 		    {
-		        
     			$db = singleton($list->dataClass)->db();
-    
     			if(singleton($list->dataClass)->hasField($column)){
-    				if($db[$column] == "Money") {
-    					$summary_value = $list->sum($column."Amount");
-    				} else {
-    					$summary_value = $list->sum($column);
-    				}
+    			    if($db[$column] == "Money") {
+    			        $summary_value = $list->sum($column."Amount");
+    			    } else {
+    			        $summary_value = $list->sum($column);
+    			    }
     	        }
     	        else
     	        {
     	        	$summary_value = "";
     	        }
-    	        
 		    }
 		    else 
 		    {
-		        $class = singleton($list->dataClass);
-		        
 		        if (key_exists($column, $this->displayFields)) {
-		            if ($class->hasField($column)) {
-		                if($class->db()[$column] == "Money") {
-		                    $summary_value = $list->sum($column."Amount");
+		            // calc sum
+		            $summary_value = 0;
+		            foreach ($list as $record) {
+		                $field = $gridField->getDataFieldValue($record, $column);
+		                if (is_a($field, 'DBField')) {
+		                    $summary_value += $field->getValue();
 		                } else {
-		                    $summary_value = $list->sum($column);
+		                    $summary_value += floatval($field);
 		                }
-		            } else {
-    		            $sum = 0;
-    		            foreach ($list as $record) {
-    		                $sum += $gridField->getDataFieldValue($record, $column);
-    		            }
-    		            $summary_value = $sum;
 		            }
-		            
 		            // format
 		            $formatClass = $this->displayFields[$column];
 		            $obj = $formatClass::create();
