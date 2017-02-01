@@ -30,7 +30,7 @@ class GridFieldSummaryRow implements GridField_HTMLProvider {
 		Requirements::css("gridfield-summary-row/css/summary-row.css");
 
 		$columns = $gridField->getColumns();
-		$list = $gridField->getList();
+		$list = $gridField->getManipulatedList();
 
 		$summary_values = new ArrayList();
 		
@@ -59,7 +59,7 @@ class GridFieldSummaryRow implements GridField_HTMLProvider {
 		            foreach ($list as $record) {
 		                $field = $gridField->getDataFieldValue($record, $column);
 		                if (is_a($field, 'DBField')) {
-		                    $summary_value += $field->getValue();
+		                    $summary_value += floatval($field->getValue());
 		                } else {
 		                    $summary_value += floatval($field);
 		                }
