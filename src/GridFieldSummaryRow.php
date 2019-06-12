@@ -5,6 +5,7 @@ namespace SamTheJarvis\GridFieldSummaryRow;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
+use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Forms\GridField\GridField_HTMLProvider;
 
 class GridFieldSummaryRow implements GridField_HTMLProvider 
@@ -25,8 +26,8 @@ class GridFieldSummaryRow implements GridField_HTMLProvider
 		$summary_values = new ArrayList();
 
 		foreach($columns as $column) {
-			$db = singleton($list->dataClass)->db();
-
+			$singleton = Injector::inst()->get($list->dataClass, true);
+			$db = $singleton->config()->db;
 			if(singleton($list->dataClass)->hasField($column)){
 				if($db[$column] == "Money") {
 					$summary_value = $list->sum($column."Amount");
@@ -50,7 +51,7 @@ class GridFieldSummaryRow implements GridField_HTMLProvider
 		));
 
 		return array(
-			$this->fragment => $data->renderWith('GridFieldSummaryRow')
+			$this->fragment => $data->renderWith(self::class)
 		);
 	}
 }
