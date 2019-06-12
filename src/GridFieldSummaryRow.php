@@ -51,7 +51,7 @@ class GridFieldSummaryRow implements GridField_HTMLProvider
 		));
 
 		return array(
-			$this->fragment => $data->renderWith(self::class)
+			$this->fragment => $data->renderWith(__CLASS__)
 		);
 	}
 }
