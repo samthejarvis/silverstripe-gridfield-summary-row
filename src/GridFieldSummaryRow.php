@@ -1,14 +1,23 @@
 <?php
 
-class GridFieldSummaryRow implements GridField_HTMLProvider {
+namespace SamTheJarvis\GridFieldSummaryRow;
 
-	public function __construct($fragment = 'footer') {
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\View\ArrayData;
+use SilverStripe\View\Requirements;
+use SilverStripe\Forms\GridField\GridField_HTMLProvider;
+
+class GridFieldSummaryRow implements GridField_HTMLProvider 
+{
+
+	public function __construct($fragment = 'footer') 
+	{
 		$this->fragment = $fragment;
 	}
 
-	function getHTMLFragments($gridField) {
-
-		Requirements::css("gridfield-summary-row/css/summary-row.css");
+	function getHTMLFragments($gridField) 
+	{
+		Requirements::css("samthejarvis/gridfield-summary-row: css/summary-row.css");
 
 		$columns = $gridField->getColumns();
 		$list = $gridField->getList();
