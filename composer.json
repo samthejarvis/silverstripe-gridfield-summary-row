@@ -1,7 +1,7 @@
 {
 	"name": "samthejarvis/gridfield-summary-row",
 	"description": "Add a summary row to gridfields (incl. totals)",
-	"type": "silverstripe-module",
+	"type": "silverstripe-vendormodule",
 	"homepage": "https://github.com/samthejarvis/gridfield-summary-row",
 	"keywords": [
 		"silverstripe", "summary", "gridfield", "total", "totals", "samthejarvis"
@@ -17,7 +17,11 @@
 		"issues": "https://github.com/samthejarvis/gridfield-summary-row/issues"
 	},
 	"require": {
-		"silverstripe/cms": "~3.1.0",
-		"silverstripe/framework": "~3.1.0"
+		"silverstripe/framework": "^4.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SamTheJarvis\\GridFieldSummaryRow\\": "src/"
+        }
 	}
 }
