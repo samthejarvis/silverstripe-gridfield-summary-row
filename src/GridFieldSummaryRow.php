@@ -25,39 +25,27 @@ class GridFieldSummaryRow implements GridField_HTMLProvider
 
         $summary_values = new ArrayList();
 
-        foreach($columns as $column) {
+        foreach ($columns as $column) {
             $singleton = Injector::inst()->get($list->dataClass, true);
             $db = $singleton->config()->db;
-            if(singleton($list->dataClass)->hasField($column)) {
-                if($db[$column] == "Money") {
+
+            if (singleton($list->dataClass)->hasField($column)) {
+                if ($db[$column] == "Money") {
                     $summary_value = $list->sum($column."Amount");
                 } else {
                     $summary_value = $list->sum($column);
                 }
-            }
-            else
-            {
+            } else {
                 $summary_value = "";
             }
 
             $summary_values->push(
-                new ArrayData(
-                    array(
-                    "Value" => $summary_value
-                    )
-                )
+                ArrayData::create(["Value" => $summary_value])
             );
-            
         }
 
-        $data = new ArrayData(
-            array(
-            'SummaryValues' => $summary_values
-            )
-        );
+        $data = ArrayData::create(['SummaryValues' => $summary_values]);
 
-        return array(
-        $this->fragment => $data->renderWith(__CLASS__)
-        );
+        return [$this->fragment => $data->renderWith(__CLASS__)];
     }
 }
