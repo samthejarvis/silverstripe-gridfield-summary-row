@@ -23,10 +23,5 @@
         "psr-4": {
             "SamTheJarvis\\GridFieldSummaryRow\\": "src/"
         }
-	},
-	"extra": {
-		"expose": [
-			"client"
-		]
 	}
 }
