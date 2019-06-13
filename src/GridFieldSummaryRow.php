@@ -18,7 +18,7 @@ class GridFieldSummaryRow implements GridField_HTMLProvider
 
 	function getHTMLFragments($gridField) 
 	{
-		Requirements::css("samthejarvis/gridfield-summary-row: css/summary-row.css");
+		Requirements::css("samthejarvis/gridfield-summary-row:client/css/summary-row.css");
 
 		$columns = $gridField->getColumns();
 		$list = $gridField->getList();
